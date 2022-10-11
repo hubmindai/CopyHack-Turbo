@@ -1,0 +1,49 @@
+<!-- Main -->
+<!-- ############################################ -->
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <br><br><br>
+    <div class="card">
+      <div class="card-body">
+        <div class="text-center mb-2 mt-3">
+          <a href="/"><img src="/assets/images/logo-color.svg" type="image/svg+xml" height="48"></a>
+        </div>
+        {{#if app_signup_enabled}}
+          <h2 class="text-center">Create your account</h2>
+          <p>
+            {{#if errors}}
+              <div class="alert alert-danger">
+                The form has errors
+                <ul>
+                  {{#errors}}
+                    <li>{{msg}}</li>
+                  {{/errors}}
+                </ul>
+              </div>
+            {{/if}}
+            <form method="post" action="/onboard/setup">
+              <div class="mb-3">
+                <label><strong>Full Name</strong></label>
+                <input id="input-name" type="text" class="form-control" name="name" placeholder="Joe Smith" value="{{user.name}}" required>
+              </div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-lg btn-primary">Create Account</button>
+              </div>
+              <div class="mb-3">
+                <small>
+                  By Creating your account you agree to the <a href="/terms" target="_blank">terms of service</a>. For information on privacy see the <a href="/privacy" target="_blank">privacy policy</a>.
+                </small>
+              </div>
+            </form>
+          </p>
+        {{else}}
+          <h2 class="text-center">Coming Soon!</h2>
+          <br>
+          <p class="pb-2 text-center">
+            We are currently in private beta.
+          </p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

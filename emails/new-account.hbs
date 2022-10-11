@@ -1,0 +1,26 @@
+<html>
+  <body>
+    <p>A new account has been created.</p>
+    <p>
+      <strong>User Name</strong>
+      <br>
+      {{user.name}}
+    </p>
+    <p>
+      <strong>Email</strong>
+      <br>
+      {{user.email}}
+    </p>
+    <p>
+      <strong>Phone</strong>
+      <br>
+      {{#if user.phone}}{{user.phone}}{{else}}<i style="color:gray;">Not Available</i>{{/if}}
+    </p>
+    <p>
+      <strong>Admin</strong>
+      <br>
+      <a href="{{app_host_url}}/admin/users/{{user.user_id}}/edit" target="_blank">User Page</a>
+    </p>
+    <br>
+  </body>
+</html>

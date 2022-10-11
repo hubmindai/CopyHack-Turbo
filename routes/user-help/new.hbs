@@ -1,0 +1,48 @@
+<!-- Main -->
+<!-- ############################################ -->
+{{>_navigation
+    type="user"
+    section="help"
+    breadcrumbs='[ { "Home":"/user/dashboard" }, { "Help":"" } ]'
+}}
+<div class="card">
+  <div class="card-body">
+    <div class="card-title pb-2">
+      <span class="section-title">New Support Case</span>
+    </div>
+    {{#if errors}}
+      <div class="alert alert-danger">
+        The form has errors
+        <ul>
+          {{#errors}}
+            <li>{{msg}}</li>
+          {{/errors}}
+        </ul>
+      </div>
+    {{/if}}
+    <form id="form-new-case" method="post" action="../help">
+      <div class="mb-3">
+        <label for="input-name" class="form-label">Title</label>
+        <input id="input-name" name="title" class="form-control" type="text" value="{{case.title}}">
+      </div>
+      <div class="mb-3">
+        <label for="input-description" class="form-label">Description</label>
+        <textarea id="input-description" class="form-control" name="description" rows="3">{{case.description}}</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="input-severity" class="form-label">Severity</label>
+        <select id="input-severity" name="severity" class="form-control">
+          {{#if case.severity}}
+            <option value="{{case.severity}}">{{case.severity}}</option>
+          {{/if}}
+          <option value="General Feedback">General Feedback</option>
+          <option value="Low Priority Issue">Low Priority Issue</option>
+          <option value="Critical Issue">Critical Issue</option>
+        </select>
+      </div>
+    </form>
+    <div class="mb-3">
+      <button type="submit" form="form-new-case" class="btn btn-primary">Submit Case</button>
+    </div>
+  </div>
+</div>

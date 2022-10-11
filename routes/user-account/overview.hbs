@@ -1,0 +1,153 @@
+<!-- Main -->
+<!-- ############################################ -->
+{{>_navigation
+    type="user"
+    section="account"
+    breadcrumbs='[ { "Home":"/user/dashboard" }, { "Account":"" } ]'
+}}
+<div class="card text-black">
+  <div class="card-body">
+    <div class="card-title pb-2">
+      <span class="section-title">Account</span>
+    </div>
+    <div id="container-error" class="alert alert-danger d-none">
+      An error has occurred checking out.
+      <br>
+      Please try again.
+    </div>
+    {{#if errors}}
+      <div class="alert alert-danger">
+        The form has errors
+        <ul>
+          {{#errors}}
+            <li>{{msg}}</li>
+          {{/errors}}
+        </ul>
+      </div>
+    {{/if}}
+    <form method="post" action="../account?_method=PUT">
+      <div class="mb-3 col-sm-6">
+        <label for="input-name" class="form-label">Name</label>
+        <input id="input-name" name="name" class="form-control" type="text" value="{{account.name}}">
+      </div>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-outline-primary">Update Name</button>
+      </div>
+    </form>
+    <br>
+    <h5>Subscription</h4>
+    <p>You are currently subscribed to the <strong>{{subscribed_feature.name}}</strong> Plan</p>
+    {{#is subscribed_feature.id "FREE"}}
+      {{#../features_with_status}}
+        {{#if stripe_product_id}}
+          <p>
+            <button id="button-checkout" class="btn btn-outline-secondary" data-priceid="{{stripe_price_id}}">Subscribe to {{name}}</button>
+          </p>
+        {{/if}}
+      {{/../features_with_status}}
+    {{else}}
+      <p>
+        <a class="btn btn-outline-secondary" href="/payments/openbillingportal">Change Plan or Billing Information.</a>
+      </p>
+    {{/is}}
+    <br>
+    <h5>Delete</h4>
+    <p>Permanently delete the account.</p>
+    <p>
+      {{#if subscribed_feature.stripe_product_id}}
+        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-active-subscription-error">Delete Account</a>
+      {{else}}
+        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirm-account-delete">Delete Account</a>
+      {{/if}}
+    </p>
+    <br>
+  </div>
+</div>
+
+<!-- Modals -->
+<!-- ############################################ -->
+<div class="modal" id="modal-confirm-account-delete" tabindex="-1" aria-labelledby="Mode" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <div class="alert alert-danger">
+            <strong>Warning</strong>
+            <p>Are you sure you want to delete your account?  This action cannot be undone.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <form method="post" action="account?_method=DELETE">
+          <button type="submit" class="btn btn-danger">Permanently Delete Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal-active-subscription-error" tabindex="-1" aria-labelledby="Mode" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Active Subscription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <p>You currently have an active subscription.  Please cancel your subscription before you delete your account.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<!-- ############################################ -->
+<script type="text/javascript">
+  // Create checkout session from price id
+  window.createCheckoutSession = (priceId) => {
+    return fetch('/payments/createcheckoutsession', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ priceId: priceId })
+    })
+    .then(result => {
+      return result.json()
+    })
+  }
+  // Get your Stripe keys from server and initialize Stripe
+  fetch('/payments/initialize')
+    .then(res => res.json())
+    .then(json => {
+      const publishableKey = json.publishableKey
+      const stripe = Stripe(publishableKey)
+      // Add listeners to checkout buttons
+      const checkoutButtons = document.querySelectorAll('button[id^=button-checkout]')
+      checkoutButtons.forEach(button => {
+        button.addEventListener('click', event => {
+          event.preventDefault()
+          document.getElementById('container-error').classList.add('d-none')
+          createCheckoutSession(button.dataset.priceid).then(data => {
+            stripe.redirectToCheckout({
+              sessionId: data.sessionId
+            })
+            .then(result => {
+              if (result.error) {
+                document.getElementById('container-error').classList.remove('d-none')
+              }
+            })
+          })
+        })
+      })
+    })
+
+</script>

@@ -1,0 +1,78 @@
+<!-- Main -->
+<!-- ############################################ -->
+{{>_navigation
+    type="user"
+    section="team"
+    breadcrumbs='[ { "Home":"/user/dashboard" }, { "Team":"../../team" }, { "Edit":"" } ]'
+}}
+<div class="card">
+  <div class="card-body">
+    <div class="card-title pb-2">
+      <span class="section-title">Edit User</span>
+    </div>
+    {{#if errors}}
+      <div class="alert alert-danger">
+        The form has errors
+        <ul>
+          {{#errors}}
+            <li>{{msg}}</li>
+          {{/errors}}
+        </ul>
+      </div>
+    {{/if}}
+    <form id="form-edit-user" method="post" action="../{{user.user_id}}?_method=PUT">
+      <div class="mb-3 col-md-6">
+        <label for="input-name" class="form-label">Name</label>
+        <input id="input-name" name="name" class="form-control" type="text" value="{{user.name}}" readonly>
+      </div>
+      <div class="mb-3 col-md-6">
+        <label for="input-email" class="form-label">Email</label>
+        <input id="input-email" name="email" class="form-control" type="text" value="{{user.email}}" readonly>
+      </div>
+      <div class="mb-3 col-md-6">
+        <label for="input-account_role" class="form-label">Role</label>
+        <select id="input-account_role" name="account_role" class="form-control">
+          <option value="MEMBER" {{#is user.account_role "MEMBER"}}selected{{/is}}>Member</option>
+          <option value="OWNER" {{#is user.account_role "OWNER"}}selected{{/is}}>Owner</option>
+        </select>
+      </div>
+    </form>
+    <div class="mb-3 mt-4">
+      <div class="btn-toolbar float-start">
+        <button type="submit" form="form-edit-user" class="btn btn-primary mb-1 me-1">Update User</button>
+        <a href="../../team" class="btn btn-outline-secondary mb-1 me-1">Cancel</a>
+      </div>
+      {{#is user.user_id authenticated_user.user_id}}
+      {{else}}
+        <a class="btn btn-outline-danger float-md-end mb-1" data-bs-toggle="modal" data-bs-target="#modal-confirm-user-delete">Delete User</a>
+      {{/is}}
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<!-- ############################################ -->
+<div class="modal" id="modal-confirm-user-delete" tabindex="-1" aria-labelledby="Mode" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete User</h5>
+        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <div class="alert alert-danger">
+            <strong>Warning</strong>
+            <p>Are you sure you want to delete the user?  This action cannot be undone.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form method="post" action="../{{user.user_id}}?_method=DELETE">
+          <button type="submit" class="btn btn-danger">Permanently Delete User</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

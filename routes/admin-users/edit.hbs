@@ -1,0 +1,50 @@
+<!-- Main -->
+<!-- ############################################ -->
+{{>_navigation
+    type="admin"
+    section="users"
+    breadcrumbs='[ { "Home":"/admin/dashboard" }, { "Users":"../../users" }, { "Edit":"" } ]'
+}}
+<div class="card">
+  <div class="card-body">
+    <div class="card-title pb-2">
+      <span class="section-title">Edit User</span>
+    </div>
+    {{#if user.is_system_admin}}
+      <div class="alert alert-secondary">
+        <strong>System Administrator Account</strong>
+        <div>User is a System Administrator and has access to the admin portal and all user accounts.</div>
+      </div>
+    {{/if}}
+    {{#if errors}}
+      <div class="alert alert-danger">
+        The form has errors
+        <ul>
+          {{#errors}}
+            <li>{{msg}}</li>
+          {{/errors}}
+        </ul>
+      </div>
+    {{/if}}
+    <div class="mb-3 col-md-6">
+      <label for="input-name" class="form-label">Name</label>
+      <input id="input-name" name="name" class="form-control" type="text" value="{{user.name}}" readonly>
+    </div>
+    <div class="mb-3 col-md-6">
+      <label for="input-email" class="form-label">Email</label>
+      <input id="input-email" name="email" class="form-control" type="text" value="{{user.email}}" readonly>
+    </div>
+    <div class="mb-3 col-md-6">
+      <label for="input-phone" class="form-label">Phone</label>
+      <input id="input-phone" name="phone" class="form-control" type="text" value="{{user.phone}}" readonly>
+    </div>
+    <div class="mb-3">
+      <a href="/admin/accounts/{{user.account_id}}/edit">View Users Account</a>
+    </div>
+    <div class="mb-3 mt-4">
+      <form method="post" action="{{user.user_id}}/impersonate" class="float-start me-1">
+        <button type="submit" class="btn btn-outline-secondary">Impersonate User</button>
+      </form>
+    </div>
+  </div>
+</div>

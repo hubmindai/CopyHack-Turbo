@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <title>{{company_short_name}}</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+    <link rel="manifest" href="/assets/images/site.webmanifest">
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1-lts/dist/umd/popper.min.js" integrity="sha256-/ijcOLwFf26xEYAjW75FizKVo5tnTYiQddPZoLUHHZ8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha256-fh8VA992XMpeCZiRuU4xii75UIG6KvHrbUF8yIS/2/4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@7.0.1/dist/turbo.es5-umd.js" crossorigin="anonymous" defer></script>
+    <script src="https://js.stripe.com/v3/" defer></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha256-djO3wMl9GeaC/u6K+ic4Uj/LKhRUSlUFcsruzS7v5ms=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+
+    <!-- Global Styles -->
+    <!-- ############################################ -->
+    <style type="text/css">
+
+      .section-title {
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 28px;
+      }
+
+      .container {
+        max-width: 1110px !important;
+      }
+
+      label.form-label {
+        font-weight: bold;
+      }
+
+      a.link-hover:link {
+        text-decoration: none;
+      }
+      a.link-hover:visited {
+        text-decoration: none;
+      }
+      a.link-hover:hover {
+        text-decoration: none;
+        color: #212529;
+      }
+      a.link-hover:active {
+        text-decoration: none;
+        color: #212529;
+      }
+
+      /* Select arrows */
+      select.form-control {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA3klEQVRIS+3VMU9CMRTF8d8zBL+aizoQFhx0kUk33RzdYMNFXUFnYeGrYYyaJiUxJHDLSxodbNKpfeffc9/pbaPyaCrr+3OA++z4rtT5Pg5GuMnCY9yWQEoBE1xhlUUP8YDrCBIB0vojLvGO0yz4hm4JJAKcYYoPHGOZAUdYoIMBXrc5iQAHeMlzviFygj7O8dkWEJU4XI8chALRhn9AVKHf70VRTHu4wFfbmKZLNKt50dLBnna0imcMd/2I0phWa3Y/D1e1Xa9BCZJG0VuQNpaWKMx72xS1Fl5/WN3BN+AgJhnZQlq4AAAAAElFTkSuQmCC');
+        background-position: calc(100% - .5rem), 100% 0;
+        background-size:  1.5em 1.5em;
+        background-repeat: no-repeat;
+      }
+
+    </style>
+
+    <!-- Global Scripts -->
+    <!-- ############################################ -->
+    <script type="text/javascript">
+      'use strict'
+
+      // Toggle loading state on submit buttons
+      const loadingElement = '<i class="fas fa-spinner fa-spin"></i> '
+
+      const disableButton = (element) => {
+        element.classList.add('disabled')
+        element.innerHTML = loadingElement + element.innerHTML
+      }
+
+      window.enableAllSubmitButtons = (element) => {
+        document.querySelectorAll('button[type="submit"]').forEach(element => {
+          element.classList.remove('disabled')
+          element.innerHTML = element.innerHTML.replace(loadingElement, '')
+        })
+      }
+
+      // On all submit buttons, disable on click
+      document.querySelector('html').addEventListener('click', (event) => {
+        if (event.target.type === 'submit') {
+          disableButton(event.target)
+        }
+      }, true)
+
+      document.addEventListener('turbo:submit-end', (event) => {
+        const submitWasSuccessful = event.detail.success === true
+        if (submitWasSuccessful) {
+          showSuccessToast()
+        }
+      })
+
+      const showSuccessToast = (event) => {
+        const toast = new bootstrap.Toast(document.querySelector('#toast-success'), {
+          animation: false,
+          autohide: true,
+          delay: 5000
+        })
+        toast.show()
+      }
+
+      const showFailToast = (event) => {
+        const toast = new bootstrap.Toast(document.querySelector('#toast-fail'), {
+          animation: false,
+          autohide: true,
+          delay: 5000
+        })
+        toast.show()
+      }
+
+      // Turbo bootstrap modal fix
+      document.addEventListener('turbo:before-cache', (event) => {
+        if (document.querySelector('.modal.show')) {
+          const currentOpenModal = bootstrap.Modal.getInstance(document.querySelector('.modal.show'))
+          currentOpenModal.hide()
+        }
+      })
+
+    </script>
+
+  </head>
+
+  <div class="position-absolute bottom-0 end-0 p-3" style="z-index:1060;">
+    <div id="toast-success" class="toast d-flex text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" style="width:100px;" data-turbo-permanent>
+      <div class="toast-body">
+        <i class="fas fa-check me-1"></i>Success
+      </div>
+    </div>
+  </div>
+
+  <div class="position-absolute bottom-0 end-0 p-3" style="z-index:1060;">
+    <div id="toast-fail" class="toast d-flex text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" style="width:100px;" data-turbo-permanent>
+      <div class="toast-body">
+        <i class="fas fa-ban me-1"></i>Failed
+      </div>
+    </div>
+  </div>
+
+  {{> _profilemodal}}
+
+  <!-- Main -->
+  <!-- ############################################ -->
+  <body class="bg-light">
+    <main class="container mb-5">
+      {{{body}}}
+    </main>
+  </body>
+
+</html>

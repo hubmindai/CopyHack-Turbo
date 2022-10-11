@@ -1,0 +1,45 @@
+<!-- Main -->
+<!-- ############################################ -->
+{{>_navigation
+    type="user"
+    section="team"
+    breadcrumbs='[ { "Home":"/user/dashboard" }, { "Team":"../team" }, { "Invite":"" } ]'
+}}
+<div class="card">
+  <div class="card-body">
+    <div class="card-title pb-2">
+      <span class="section-title">Invite Member</span>
+    </div>
+    {{#if errors}}
+      <div class="alert alert-danger">
+        The form has errors
+        <ul>
+          {{#errors}}
+            <li>{{msg}}</li>
+          {{/errors}}
+        </ul>
+      </div>
+    {{/if}}
+    <form id="form-invite-user" method="post" action="../team">
+      <div class="mb-3 col-md-6">
+        <label for="input-name" class="form-label">Name</label>
+        <input id="input-name" name="name" class="form-control" type="text" value="{{user.name}}">
+      </div>
+      <div class="mb-3 col-md-6">
+        <label for="input-email" class="form-label">Email</label>
+        <input id="input-email" name="email" class="form-control" type="text" value="{{user.email}}">
+      </div>
+      <div class="mb-3 col-md-6">
+        <label for="input-account_role" class="form-label">Role</label>
+        <select id="input-account_role" name="account_role" class="form-control">
+          <option value="MEMBER" {{#is user.account_role "MEMBER"}}selected{{/is}}>Member</option>
+          <option value="OWNER" {{#is user.account_role "OWNER"}}selected{{/is}}>Owner</option>
+        </select>
+      </div>
+    </form>
+    <div class="mb-3">
+      <button type="submit" form="form-invite-user" class="btn btn-primary">Invite User</button>
+      <a href="../team" class="btn btn-outline-secondary">Cancel</a>
+    </div>
+  </div>
+</div>

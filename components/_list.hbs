@@ -1,0 +1,26 @@
+{{#if data.length}}
+  <div class="list-group list-group-flush mb-3">
+    {{#data}}
+      {{> @partial-block }}
+    {{/data}}
+  </div>
+{{else}}
+  <p class="text-secondary text-center mt-5 mb-5">No Results Found</p>
+{{/if}}
+<nav class="mx-auto">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="btn btn-link link-hover text-secondary {{#if state.current_page}}{{#is state.current_page "1"}}disabled{{/is}}{{else}}disabled{{/if}}" href="{{#is state.current_page 1}}{{else}}?page={{subtract ../state.current_page 1}}{{/is}}">
+        <i class="fa fa-arrow-left"></i>
+      </a>
+    </li>
+    <li class="page-item" style="margin:7px;">
+      <span class="text-secondary">{{#if state.current_page}}{{state.current_page}}{{else}}1{{/if}}</span>
+    </li>
+    <li class="page-item">
+      <a class="btn btn-link link-hover text-secondary {{#lt data.length 10}}disabled{{/lt}}" href="?page={{#if state.current_page}}{{add state.current_page 1}}{{else}}2{{/if}}">
+        <i class="fa fa-arrow-right"></i>
+      </a>
+    </li>
+  </ul>
+</nav>

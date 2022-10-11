@@ -1,0 +1,63 @@
+<!-- Main -->
+<!-- ############################################ -->
+{{>_navigation
+    type="user"
+    section="profile"
+    breadcrumbs='[ { "Home":"/user/dashboard" }, { "Profile":"" } ]'
+}}
+<div class="card">
+  <div class="card-body">
+    <div class="card-title pb-2">
+      <span class="section-title">Profile</span>
+    </div>
+    {{#if errors}}
+      <div class="alert alert-danger">
+        The form has errors
+        <ul>
+          {{#errors}}
+            <li>{{msg}}</li>
+          {{/errors}}
+        </ul>
+      </div>
+    {{/if}}
+    <form id="form-edit-profile" method="post" action="../profile?_method=PUT">
+      <div class="mb-3 col-md-6">
+        <label for="input-name" class="form-label">Name</label>
+        <input id="input-name" name="name" class="form-control" type="text" value="{{user.name}}">
+      </div>
+      <div class="mb-3 col-md-6">
+        <label for="input-email" class="form-label">Email</label>
+        <input id="input-email" name="email" class="form-control" type="text" value="{{user.email}}">
+      </div>
+      <div class="mb-3 col-md-6">
+        <label for="input-phone" class="form-label">Phone</label>
+        <input id="input-phone" name="phone" class="form-control" type="text" value="{{user.phone}}">
+      </div>
+      <div class="mb-3 col-md-6">
+        <label for="input-time_zone" class="form-label">Time Zone</label>
+        <select id="input-time_zone" name="time_zone" class="form-control">
+          {{#timezone_options}}
+            <option value="{{value}}"  {{#is ../user.time_zone value}}selected{{/is}}>{{name}}</option>
+          {{/timezone_options}}
+        </select>
+      </div>
+      <div class="mb-3 col-md-6">
+        <label class="form-label">Date Format</label>
+        <select name="date_format" class="form-control">
+          <option value="DD-MM-YYYY" {{#is user.date_format "DD-MM-YYYY"}}selected{{/is}}>DD-MM-YYYY</option>
+          <option value="MM-DD-YYYY" {{#is user.date_format "MM-DD-YYYY"}}selected{{/is}}>MM-DD-YYYY</option>
+        </select>
+      </div>
+      <div class="mb-3 col-md-6">
+        <label for="input-time_format" class="form-label">Time Format</label>
+        <select id="input-time_format" name="time_format" class="form-control">
+          <option value="24_HOUR" {{#is user.time_format "24_HOUR"}}selected{{/is}}>(24 Hour) 13:00</option>
+          <option value="12_HOUR" {{#is user.time_format "12_HOUR"}}selected{{/is}}>(12 Hour) 1:00pm</option>
+        </select>
+      </div>
+    </form>
+    <div class="mb-3 mt-4">
+      <button type="submit" form="form-edit-profile" class="btn btn-primary">Update Profile</button>
+    </div>
+  </div>
+</div>

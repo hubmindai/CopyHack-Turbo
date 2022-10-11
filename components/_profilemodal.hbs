@@ -1,0 +1,36 @@
+<div class="modal" id="modal-profile" tabindex="-1" aria-labelledby="Profile" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="text-center">
+          <div>
+            &nbsp;
+            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <h2><i class="far fa-user-circle fa-2x text-muted"></i></h2>
+          <h4>{{authenticated_user.name}}</h4>
+          <p class="text-muted">{{authenticated_user.email}}</p>
+          {{#if authenticated_user.phone}}
+            <p class="text-muted">{{authenticated_user.phone}}</p>
+          {{/if}}
+          <div>
+            <form method="POST" action="/auth/signout">
+              <button type="submit" class="btn btn-outline-secondary">Sign Out</button>
+            </form>
+          </div>
+          {{#if authenticated_user.is_system_admin}}
+            <div class="alert alert-secondary p-1 mt-3">
+              <small><i class="far fa-lock text-muted"></i>&nbsp;&nbsp;<span class="text-muted">System Controls</span></small>
+              <div class="mt-1">
+                <a href="/admin/dashboard" class="btn btn-link link-secondary">Admin Portal</a>
+              </div>
+              <div>
+                <a href="/user/dashboard" class="btn btn-link link-secondary">User Portal</a>
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

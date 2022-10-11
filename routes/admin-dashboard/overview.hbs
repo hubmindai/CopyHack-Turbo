@@ -1,0 +1,63 @@
+<!-- Main -->
+<!-- ############################################ -->
+{{>_navigation
+    type="admin"
+    section="dashboard"
+    breadcrumbs='[ { "Home":"" } ]'
+}}
+<div class="card bg-light border-0">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card text-black mb-3">
+        <div class="card-body">
+          <h2 class="card-title">21</h2>
+          <p class="card-text text-secondary"><i class="fas fa-clock text-primary"></i> Active</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-black mb-3">
+        <div class="card-body">
+          <h2 class="card-title">13</h2>
+          <p class="card-text text-secondary"><i class="fas fa-check-circle text-success"></i> Finished</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-black mb-3">
+        <div class="card-body">
+          <h2 class="card-title">3</h2>
+          <p class="card-text text-secondary"><i class="fas fa-exclamation-triangle text-danger"></i> Errors</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <span class="section-title">Recent Activity</span>
+  </div>
+  <div class="list-group list-group-flush mb-3">
+    <a href="/user/things" class="list-group-item list-group-item-action overflow-hidden text-truncate">
+      <strong>Something happened</strong>
+      <br>
+      <small class="text-secondary">Canceled on 2021-04-12 12:34</small>
+    </a>
+    <a href="/user/things" class="list-group-item list-group-item-action overflow-hidden text-truncate">
+      <strong>Another thing happened</strong>
+      <br>
+      <small class="text-secondary">Completed successfully on 2021-04-12 12:34</small>
+    </a>
+    <a href="/user/things" class="list-group-item list-group-item-action overflow-hidden text-truncate">
+      <strong>Something was completed</strong>
+      <br>
+      <small class="text-secondary">Completed with errors on 2021-04-12 12:34</small>
+    </a>
+    <a href="/user/things" class="list-group-item list-group-item-action overflow-hidden text-truncate">
+      <strong>An event finished</strong>
+      <br>
+      <small class="text-secondary">Failed on 2021-04-12 12:34</small>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<!-- Main -->
+<!-- ############################################ -->
+{{>_navigation
+    type="user"
+    section="things"
+    breadcrumbs='[ { "Home":"/user/dashboard" }, { "Things":"../things" }, { "New":"" } ]'
+}}
+<div class="card">
+  <div class="card-body">
+    <div class="card-title pb-2">
+      <span class="section-title">New Thing</span>
+    </div>
+    {{#if errors}}
+      <div class="alert alert-danger">
+        The form has errors
+        <ul>
+          {{#errors}}
+            <li>{{msg}}</li>
+          {{/errors}}
+        </ul>
+      </div>
+    {{/if}}
+    <form id="form-new-thing" method="post" action="../things">
+      <div class="mb-3">
+        <label for="input-name" class="form-label">Name</label>
+        <input id="input-name" name="name" class="form-control" type="text" value="{{thing.name}}">
+      </div>
+      <div class="mb-3">
+        <label for="input-description" class="form-label">Description</label>
+        <textarea id="input-description" class="form-control" name="description" rows="3">{{thing.description}}</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="input-type" class="form-label">Type</label>
+        <select id="input-type" name="type" class="form-control">
+          <option value="" {{#if thing.type}}{{else}}selected{{/if}}>Select Type</option>
+          <option value="LITE" {{#is thing.type "LITE"}}selected{{/is}}>Lite</option>
+          <option value="STANDARD" {{#is thing.type "STANDARD"}}selected{{/is}}>Standard</option>
+          <option value="EXTENDED" {{#is thing.type "EXTENDED"}}selected{{/is}}>Extended</option>
+        </select>
+      </div>
+    </form>
+    <div class="mb-3">
+      <button type="submit" form="form-new-thing" class="btn btn-primary">Create Thing</button>
+      <a href="../things" class="btn btn-outline-secondary">Cancel</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<!-- Top bar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom">
+  <div class="container">
+    <div class="d-lg-none d-xl-none m-0">
+      <a class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-mobile-menu">
+        <i class="fas fa-bars"></i>
+      </a>
+    </div>
+    <a class="navbar-brand pt-0" href="/" data-turbo="false">
+      <img src="/assets/images/logo-color-with-name.svg" type="image/svg+xml" height="24">
+    </a>
+    <div>
+      <div class="navbar-nav ms-auto">
+        <a class="btn btn-link nav-item nav-link float-end" data-bs-toggle="modal" data-bs-target="#modal-profile">
+          <i class="far fa-user-circle fa-lg"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div style="height:75px;"></div>
+
+<!-- Impersonated user message -->
+{{#if impersonated_user_id}}
+  <div class="alert alert-warning text-center pt-2 pb-2">
+    <span class="ms-1">Impersonating User</span> <strong>{{impersonated_user_id}}</strong>
+    <form method="post" action="/user/profile/exitimpersonation" class="ms-2 d-inline">
+      <input name="impersonator_user_id" value="{{impersonator_user_id}}" class="d-none">
+      <input name="impersonated_user_id" value="{{impersonated_user_id}}" class="d-none">
+      <button type="submit" class="alert-link btn btn-link p-0 pb-1">Exit</button>
+    </form>
+  </div>
+{{/if}}
+
+<!-- Desktop sidebar -->
+<div class="d-none d-lg-block col-lg-2 float-start me-4" style="height:100vh;margin-right:20px;">
+  <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+
+    <!-- User sections-->
+    {{#is type "user"}}
+      <a href="/user/dashboard" class="mt-2 mb-2 {{#is ../section "dashboard"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+        <i class="fas fa-border-all fa-fw fa-lg"></i>&nbsp;&nbsp;Dashboard
+      </a>
+      <a href="/user/things" class="mt-2 mb-2 {{#is ../section "things"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+        <i class="fas fa-cube fa-fw fa-lg"></i>&nbsp;&nbsp;Things
+      </a>
+      <hr class="text-secondary">
+      <a href="/user/help/new" class="mt-2 mb-2 {{#is ../section "help"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+        <i class="fas fa-question-circle fa-fw fa-lg"></i>&nbsp;&nbsp;Help
+      </a>
+      <a href="/user/profile/edit" class="mt-2 mb-2 {{#is ../section "profile"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+        <i class="fas fa-user-circle fa-fw fa-lg"></i>&nbsp;&nbsp;Profile
+      </a>
+      {{#is ../authenticated_user.account_role "OWNER"}}
+        <a href="/user/account/edit" class="mt-2 mb-2 {{#is ../section "account"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+          <i class="fas fa-briefcase fa-fw fa-lg"></i>&nbsp;&nbsp;Account
+        </a>
+        <a href="/user/team" class="mt-2 mb-2 {{#is ../section "team"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+          <i class="fas fa-users fa-fw fa-lg"></i>&nbsp;&nbsp;Team
+        </a>
+      {{/is}}
+    {{/is}}
+
+    <!-- Admin sections-->
+    {{#is type "admin"}}
+      <a href="/admin/dashboard" class="mt-2 mb-2 {{#is ../section "dashboard"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+        <i class="fas fa-border-all fa-fw fa-lg"></i>&nbsp;&nbsp;Dashboard
+      </a>
+      <a href="/admin/users" class="mt-2 mb-2 {{#is ../section "users"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+        <i class="fas fa-user fa-fw fa-lg"></i>&nbsp;&nbsp;Users
+      </a>
+      <a href="/admin/accounts" class="mt-2 mb-2 {{#is ../section "accounts"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+        <i class="fas fa-users fa-fw fa-lg"></i>&nbsp;&nbsp;Accounts
+      </a>
+    {{/is}}
+
+  </div>
+</div>
+
+<!-- Mobile modal -->
+<div class="modal" id="modal-mobile-menu" tabindex="-1" aria-labelledby="Profile" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="pb-3">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+
+          <!-- User sections-->
+          {{#is type "user"}}
+            <a href="/user/dashboard" class="mt-2 mb-2 {{#is ../section "dashboard"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+              <i class="fas fa-border-all fa-fw fa-lg"></i>&nbsp;&nbsp;Dashboard
+            </a>
+            <a href="/user/things" class="mt-2 mb-2 {{#is ../section "things"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+              <i class="fas fa-cube fa-fw fa-lg"></i>&nbsp;&nbsp;Things
+            </a>
+            <hr class="text-secondary">
+            <a href="/user/help/new" class="mt-2 mb-2 {{#is ../section "help"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+              <i class="fas fa-question-circle fa-fw fa-lg"></i>&nbsp;&nbsp;Help
+            </a>
+            <a href="/user/profile/edit" class="mt-2 mb-2 {{#is ../section "profile"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+              <i class="fas fa-user-circle fa-fw fa-lg"></i>&nbsp;&nbsp;Profile
+            </a>
+            {{#is ../authenticated_user.account_role "OWNER"}}
+              <a href="/user/account/edit" class="mt-2 mb-2 {{#is ../section "account"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+                <i class="fas fa-briefcase fa-fw fa-lg"></i>&nbsp;&nbsp;Account
+              </a>
+              <a href="/user/team" class="mt-2 mb-2 {{#is ../section "team"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+                <i class="fas fa-users fa-fw fa-lg"></i>&nbsp;&nbsp;Team
+              </a>
+            {{/is}}
+          {{/is}}
+
+          <!-- Admin sections-->
+          {{#is type "admin"}}
+            <a href="/admin/dashboard" class="mt-2 mb-2 {{#is ../section "dashboard"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+              <i class="fas fa-border-all fa-fw fa-lg"></i>&nbsp;&nbsp;Dashboard
+            </a>
+            <a href="/admin/users" class="mt-2 mb-2 {{#is ../section "users"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+              <i class="fas fa-user fa-fw fa-lg"></i>&nbsp;&nbsp;Users
+            </a>
+            <a href="/admin/accounts" class="mt-2 mb-2 {{#is ../section "accounts"}}text-primary{{else}}text-secondary{{/is}} text-decoration-none">
+              <i class="fas fa-users fa-fw fa-lg"></i>&nbsp;&nbsp;Accounts
+            </a>
+          {{/is}}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Breadcrumbs -->
+<div class="text-secondary pt-1 mb-3">
+  {{#parseJSON breadcrumbs}}
+    {{#each this}}
+      {{#each this}}
+        {{#if this}}
+          <span><a href="{{this}}" class="link-secondary link-hover">{{@key}}</a></span>
+          &nbsp;
+          <i class="fas fa-sm fa-chevron-right"></i>
+          &nbsp;
+        {{else}}
+          <span>{{@key}}</span>
+        {{/if}}
+      {{/each}}
+    {{/each}}
+  {{/parseJSON}}
+</div>
