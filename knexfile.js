@@ -14,6 +14,8 @@ module.exports = {
     client: 'pg',
     version: '13',
     connection: {
+      connectionString: process.env.DB_DEV_HOST,
+      ssl: { rejectUnauthorized },
       host: process.env.DB_DEV_HOST,
       user: process.env.DB_DEV_USER,
       password: process.env.DB_DEV_PASSWORD,
@@ -36,6 +38,8 @@ module.exports = {
     client: 'pg',
     version: '13',
     connection: {
+      connectionString: process.env.DB_PROD_HOST,
+      ssl: { rejectUnauthorized },
       host: process.env.DB_PROD_HOST,
       user: process.env.DB_PROD_USER,
       password: process.env.DB_PROD_PASSWORD,
