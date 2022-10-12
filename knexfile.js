@@ -2,7 +2,9 @@
 //
 // Imports
 // ############################################
-require('dotenv').config()
+/require('dotenv').config()
+require('dotenv').config({path: 'path_to_env_file'});
+
 
 //
 //
