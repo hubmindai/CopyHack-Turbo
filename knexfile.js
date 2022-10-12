@@ -23,7 +23,7 @@ module.exports = {
       password: process.env.DB_DEV_PASSWORD,
       database: process.env.DB_DEV_DATABASE,
       ssl: {
-      ca: fs.readFileSync(path.join(__dirname, '../ca-certificate.crt'))
+      ca: fs.readFileSync(path.join(__dirname, './ca-certificate.crt'))
     }
     },
     pool: {
@@ -49,7 +49,7 @@ module.exports = {
       password: process.env.DB_PROD_PASSWORD,
       database: process.env.DB_PROD_DATABASE,
       ssl: {
-      ca: fs.readFileSync(path.join(__dirname, '../ca-certificate.crt'))
+      ca: fs.readFileSync(path.join(__dirname, './ca-certificate.crt'))
     }
     },
     pool: {
