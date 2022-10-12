@@ -14,7 +14,6 @@ module.exports = {
     client: 'pg',
     version: '13',
     connection: {
-      port: process.env.DB_PORT,
       host: process.env.DB_DEV_HOST,
       user: process.env.DB_DEV_USER,
       password: process.env.DB_DEV_PASSWORD,
@@ -22,7 +21,8 @@ module.exports = {
     },
     pool: {
       min: 2,
-      max: 20
+      max: 20,
+      propagateCreateError: false
     },
     migrations: {
       directory: './database/migrations',
@@ -37,7 +37,6 @@ module.exports = {
     client: 'pg',
     version: '13',
     connection: {
-      port: process.env.DB_PORT,
       host: process.env.DB_PROD_HOST,
       user: process.env.DB_PROD_USER,
       password: process.env.DB_PROD_PASSWORD,
@@ -45,7 +44,8 @@ module.exports = {
     },
     pool: {
       min: 2,
-      max: 20
+      max: 20,
+      propagateCreateError: false
     },
     migrations: {
       directory: './database/migrations',
