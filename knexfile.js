@@ -21,8 +21,7 @@ module.exports = {
     },
     pool: {
       min: 2,
-      max: 20,
-      propagateCreateError: false
+      max: 10
     },
     migrations: {
       directory: './database/migrations',
@@ -44,8 +43,7 @@ module.exports = {
     },
     pool: {
       min: 2,
-      max: 20,
-      propagateCreateError: false
+      max: 10
     },
     migrations: {
       directory: './database/migrations',
