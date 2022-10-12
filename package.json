@@ -29,7 +29,7 @@
     "nodemailer": "^6.4.17",
     "passport": "^0.4.1",
     "passport-custom": "^1.1.1",
-    "pg": "^8.8.0",
+    "pg": "^8.5.1",
     "pino-http": "^5.5.0",
     "pino-pretty": "^4.7.1",
     "stripe": "^8.143.0"
