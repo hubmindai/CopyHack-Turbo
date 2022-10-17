@@ -18,8 +18,7 @@ module.exports = {
       port: '25060',
       user: 'doadmin',
       password: 'AVNS_hFsDkFF_E0fLQ-Rfx3-',
-      database: 'dbdev',
-}
+      database: 'dbdev'
     },
     pool: {
       min: 2,
@@ -39,10 +38,10 @@ module.exports = {
     version: '13',
     connection: {
       host: 'db-postgresql-nyc1-do-user-10528061-0.b.db.ondigitalocean.com',
+      port: '25060',
       user: 'doadmin',
       password: 'AVNS_hFsDkFF_E0fLQ-Rfx3-',
-      database: 'dbprod',
-}
+      database: 'dbprod'
     },
     pool: {
       min: 2,
