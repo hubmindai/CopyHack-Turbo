@@ -47,6 +47,9 @@
       "/node_modules/"
     ]
   },
+  "engines" : { 
+    "node" : "18.11.0" 
+  },
   "standard": {
     "env": [
       "jest"
