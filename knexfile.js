@@ -18,7 +18,7 @@ module.exports = {
       user: process.env.DB_DEV_USER,
       password: process.env.DB_DEV_PASSWORD,
       database: process.env.DB_DEV_DATABASE,
-      ssl=true,
+      ssl: true,
     },
     pool: {
       min: 2,
@@ -41,7 +41,7 @@ module.exports = {
       user: process.env.DB_PROD_USER,
       password: process.env.DB_PROD_PASSWORD,
       database: process.env.DB_PROD_DATABASE,
-      ssl=true,
+      ssl: true,
     },
     pool: {
       min: 2,
