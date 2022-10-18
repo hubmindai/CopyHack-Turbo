@@ -83,7 +83,7 @@ app.use(session({
   secret: process.env.APP_SECRET,
   cookie: {
     httpOnly: true,
-    secure: process.env.APP_HTTPS_ONLY === 'false',
+    secure: process.env.APP_HTTPS_ONLY === 'true',
     maxAge: 15778800000, // 6 Months
     sameSite: 'lax'
   },
