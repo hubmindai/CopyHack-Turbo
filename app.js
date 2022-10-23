@@ -50,8 +50,8 @@ viewHelpersUtil.init(hbs)
 const csp = {}
 csp.directives = helmet.contentSecurityPolicy.getDefaultDirectives()
 csp.directives['child-src'] = []
-csp.directives['child-src'].push('https://js.stripe.com/v3/')
-csp.directives['script-src'].push('https://js.stripe.com/v3/')
+csp.directives['child-src'].push('js.stripe.com')
+csp.directives['script-src'].push('js.stripe.com')
 csp.directives['script-src'].push("'unsafe-inline'")
 csp.directives['script-src'].push('cdn.jsdelivr.net')
 csp.directives['connect-src'] = []
