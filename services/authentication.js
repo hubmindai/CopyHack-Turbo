@@ -209,7 +209,7 @@ router.post('/auth/requestcode', async (req, res, next) => {
       })
     }
 
-    const verificationCode = cryptoUtility.generateRandomString(8, '23456789ABCDEFGHJKMNOPQRSTUVWXYZ')
+    const verificationCode = "23456789ABCDEFGHJKMNOPQRSTUVWXYZ";//cryptoUtility.generateRandomString(8, '23456789ABCDEFGHJKMNOPQRSTUVWXYZ')
     const sessionToken = cryptoUtility.generateRandomString()
     const email = req.body.email
 
