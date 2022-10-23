@@ -12,7 +12,7 @@ const dbService = require('../services/database')
 // ############################################
 exports.create = async (args) => {
   return await dbService.instance
-    .from(authentication_request)
+    .from('authentication_request')
     .insert(args)
     .returning('authentication_request_id')
 }
